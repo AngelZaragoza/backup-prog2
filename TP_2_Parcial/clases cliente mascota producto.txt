@@ -1,0 +1,148 @@
+﻿LYNN AHI ESTA LUEGO SI HACEMOS LO DE HERENCIA O FALTA ALGO LO CORREJIMOS , LO Q SI EN MASCOTA HAY UNA CONTRADICCION XQ SI YA TENEMOS LO Q ES EL IDrAZA
+ YA NO HACE FALTA PONERLE COMO STRING RAZA OSEA Q VAYA EL NOMBRE DIRECTAMENTE SE CARGA CON EL CODIGO.... BUENO ESA ES MI OPINION CUALQUIER COSA 
+VEMOS MAÑANA AHI TE PASO LAS TRES CLASES ...... 
+CLASE PRODUCTO:
+ class Producto
+    {
+        private int idProducto;
+        private int idMarca;
+        private string observacion;
+        private double precio_unitario;
+        private int stock;
+
+        public int pIdProducto { set{ idProducto = value ; } get {return idProducto;} }
+        public int pIdMarca {set {idMarca = value; } get { return idMarca;} }
+        public string pObservacion {set { observacion = value; } get { return observacion;} }
+        public double pPrecio_unitario {set { precio_unitario = value; } get { return precio_unitario;} }
+        public int pStock {set {stock = value; } get { return stock;} }
+
+        public Producto()
+        {
+           idProducto = 0;
+           idMarca = 0;
+           observacion = "";
+           precio_unitario = 0;
+           stock = 0;
+        }
+        public Producto( int idProducto, int idMarca, string observacion, double precio_unitario, int stock)
+        {
+          this. idProducto = idProducto;
+          this. idMarca = idMarca;
+          this. observacion = observacion;
+          this. precio_unitario = precio_unitario;
+          this. stock = stock;
+        }
+        public override string ToString()
+        {
+            return idProducto + " - " + observacion;
+        }
+    }
+}
+CLASE CLIENTE:
+  class Cliente
+    {
+        private int idCliente;
+        private string nombre;
+        private string apellido;
+        private int telFijo;
+        private int telCel;
+        private string correo;
+        private int tipoDoc;
+        private int nroDoc;
+        private int userName;
+
+        public int pIdCliente { set { idCliente = value; } get { return idCliente; } }
+        public string pNombre { set { nombre = value; } get { return nombre; } }
+        public string pApellido { set { apellido = value; } get { return apellido; } }
+        public int pTelFijo { set { telFijo = value; } get { return telFijo; } }
+        public int pTelCel { set { telCel = value; } get { return telCel; } }
+        public string pCorreo { set { correo = value; } get { return correo; } }
+        public int pTipoDoc { set { tipoDoc = value; } get { return tipoDoc; } }
+        public int pNroDoc { set { nroDoc = value; } get { return nroDoc; } }
+        public int pUserName { set { userName = value; } get { return userName; } }
+
+        public Cliente()
+        {
+            idCliente = 0;
+            nombre = "";
+            apellido = "";
+            telFijo = 0;
+            telCel = 0;
+            correo = "";
+            tipoDoc = 0;
+            nroDoc = 0;
+            userName = 0;
+        }
+        public Cliente(int idCliente, string nombre, string apellido, int telFijo, int telCel, string correo, int tipoDoc, int nroDoc, int userName)
+        {
+            this.idCliente = idCliente;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.telFijo = telFijo;
+            this.telCel = telCel;
+            this.correo = correo;
+            this.tipoDoc = tipoDoc;
+            this.nroDoc = nroDoc;
+            this.userName = userName;
+        }
+        public override string ToString()
+        {
+            return idCliente + " - " + nombre;
+        }
+    }
+}
+CLASE MASCOTA:
+
+ class Mascota
+    {
+        private int idMascota;
+        private int idCliente;
+        private string nombre;
+        private DateTime fechaNac;
+        private string observacion;
+        private int idRaza;
+        private bool sexo;
+        private int peso;
+        private int tipo_mascota;
+       
+        public int pIdMascota { set { idMascota = value;} get { return idMascota ; } }
+        public int pIdCliente  { set{ idCliente = value ; } get {return idCliente;} }
+        public string pNombre  {set { nombre = value; } get { return nombre; } }
+        public DateTime pFechaNac {set { fechaNac = value; } get { return fechaNac;} }
+        public int pIdRaza {set { idRaza = value; } get { return idRaza;} }
+        public bool pSexo { set { sexo = value; } get { return sexo; } }
+        public string pObservacion {set { observacion = value; } get { return observacion;} }
+        public int pPeso {set { peso = value; } get { return peso;} }
+        public int ptipo_mascota {set { tipo_mascota = value; } get { return tipo_mascota;} }
+
+        public Mascota()
+        {
+           idMascota = 0;
+           idCliente = 0;
+           nombre = "";
+           fechaNac = DateTime.Today ;
+           idRaza = 0;
+           sexo = true;
+           observacion = "";
+           peso = 0;
+           tipo_mascota = 0;
+        }
+        public Mascota( int idMascota, int idCliente, string nombre, DateTime fechaNac, int idRaza, bool sexo, string observacion, int peso, int tipo_mascota)
+        {
+          this.idMascota = idMascota;
+          this. idCliente = idCliente;
+          this. nombre = nombre;
+          this. fechaNac = fechaNac;
+          this. idRaza = idRaza;
+          this. observacion = observacion;
+          this. peso = peso;
+          this.sexo = sexo;
+          this.tipo_mascota;
+        }
+        public override string ToString()
+        {
+            return idMascota + " - " + nombre;
+        }
+    }
+}
+ eso es todo o falta, si llega a faltar algo me avisas ahi en lo de mascota agrege el sexo y el tipo de mascota( si es gato, perro, pez, etc)q faltaba....
