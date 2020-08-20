@@ -14,16 +14,18 @@ namespace PII_TP2_Vet
     public partial class frmRptClientes : Form
     {
         string consultaSQL;
+        string cadenaBD;
         ReportDataSource repDS;
-        AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+        AccesoDato oDato;
 
-        public frmRptClientes()
+        public frmRptClientes(string cadena)
         {
             InitializeComponent();
             consultaSQL = "SELECT C.idCliente AS Cod, C.apellido+' '+C.nombre AS ApeNombre, C.direccion AS Direccion, "
                         + "C.telefonoFijo AS Fijo, C.telefonoCelular AS Cel, C.correo AS Correo, C.documento AS nDoc, "
                         + "C.sexo AS Sexo, C.fechaNac AS FecNac, C.estado AS Estado "
                         + "FROM Cliente AS C";
+            cadenaBD = cadena;
 
         }
 
@@ -40,6 +42,7 @@ namespace PII_TP2_Vet
             cboOrden.Items.Add("Fecha de Nacimiento");
             cboOrden.Items.Add("Activo");
 
+            oDato = new AccesoDato(cadenaBD);
             recargaReporte(consultaSQL, "", -1, false);
          //   this.rptvClientes.RefreshReport();
         }

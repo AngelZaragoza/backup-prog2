@@ -14,17 +14,18 @@ namespace PII_TP2_Vet
     public partial class frmRptMascotas : Form
     {
         string consultaSQL;
+        string cadenaBD;
         ReportDataSource repDS;
-        AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+        AccesoDato oDato;
         
-        public frmRptMascotas()
+        public frmRptMascotas(string cadena)
         {
             InitializeComponent();
             consultaSQL = "SELECT M.idMascota AS Cod, M.nombre AS Nombre, C.apellido+' '+C.nombre AS Duenio, TM.descripcion AS Tipo, "
                         + "R.nombreRaza AS Raza, M.sexo, M.fechaNacimiento AS FechaNac, M.peso, M.observacion, M.estado "
                         + "FROM (TipoMascota AS TM INNER JOIN (Raza AS R INNER JOIN Mascota AS M ON R.idRaza = M.idRaza) "
                         + "ON TM.idTipoMascota = M.idTipoMascota) INNER JOIN Cliente AS C ON M.idCliente = C.idCliente";
-
+            cadenaBD = cadena;
         }
 
         private void frmRptMascotas_Load(object sender, EventArgs e)
@@ -39,7 +40,8 @@ namespace PII_TP2_Vet
             cboOrden.Items.Add("Peso");
             cboOrden.Items.Add("Observaciones");
             cboOrden.Items.Add("Activo");
-            
+
+            oDato = new AccesoDato(cadenaBD);
             recargaReporte(consultaSQL, "", -1,false);
             //this.reportViewer1.RefreshReport();            
         }

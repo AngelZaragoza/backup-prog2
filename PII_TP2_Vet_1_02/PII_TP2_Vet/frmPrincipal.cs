@@ -54,7 +54,7 @@ namespace PII_TP2_Vet
         {
             if (rptProd == null)
             {
-                rptProd = new frmRptProductos();
+                rptProd = new frmRptProductos(cadenaBD);
                 rptProd.MdiParent = this;
                 rptProd.FormClosed += new FormClosedEventHandler(rptProd_FormClosed);
                 rptProd.Show();
@@ -125,7 +125,7 @@ namespace PII_TP2_Vet
         {
             if (rptMasc == null)
             {
-                rptMasc = new frmRptMascotas();
+                rptMasc = new frmRptMascotas(cadenaBD);
                 rptMasc.MdiParent = this;
                 rptMasc.FormClosed += new FormClosedEventHandler(rptMasc_FormClosed);
                 rptMasc.Show();
@@ -166,7 +166,7 @@ namespace PII_TP2_Vet
         {
             if (rptClien == null)
             {
-                rptClien = new frmRptClientes();
+                rptClien = new frmRptClientes(cadenaBD);
                 rptClien.MdiParent = this;
                 rptClien.FormClosed += new FormClosedEventHandler(rptClien_FormClosed);
                 rptClien.Show();

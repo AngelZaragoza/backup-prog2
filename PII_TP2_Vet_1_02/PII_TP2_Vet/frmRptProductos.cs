@@ -15,15 +15,17 @@ namespace PII_TP2_Vet
     public partial class frmRptProductos : Form
     {
         string consultaSQL;
+        string cadenaBD;
         ReportDataSource repDS;
-        AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+        AccesoDato oDato;
         
-        public frmRptProductos()
+        public frmRptProductos(string cadena)
         {
             InitializeComponent();
             consultaSQL = "SELECT  P.idProducto AS Cod, M.marca AS Marca, P.descripcion AS [Nombre Producto],"
                             + " P.precio AS Precio, P.stock AS Stock, P.estado AS Estado "
-                            + "FROM (Producto P INNER JOIN Marcas M ON P.idMarca = M.idMarca)";            
+                            + "FROM (Producto P INNER JOIN Marcas M ON P.idMarca = M.idMarca)";
+            cadenaBD = cadena;
         }
 
         private void frmRptProductos_Load(object sender, EventArgs e)
@@ -37,6 +39,7 @@ namespace PII_TP2_Vet
             cboOrden.Items.Add("Stock");
             cboOrden.Items.Add("Activo");
 
+            oDato = new AccesoDato(cadenaBD);
             recargaReporte(consultaSQL, "", -1);
 
         }

@@ -14,7 +14,7 @@ namespace PII_TP2_Vet
     public partial class frmCliente : Form
     {        
         //AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
-        string cadenaBD;        
+        string cadenaBD;
         AccesoDato oDato;
         const int tam = 100;
         Cliente[] ac = new Cliente[tam];
