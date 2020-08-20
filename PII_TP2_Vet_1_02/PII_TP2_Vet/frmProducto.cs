@@ -13,14 +13,16 @@ namespace PII_TP2_Vet
 {
     public partial class frmProducto : Form
     {
-        AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+        string cadenaBD;
+        AccesoDato oDato;
+        //AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
         const int tam = 100;
         int cont;
         bool esNuevo;
         
         Producto[] aProd = new Producto[tam];
 
-        public frmProducto()
+        public frmProducto(string cadena)
         {            
             InitializeComponent();
             cont = 0;
@@ -28,13 +30,16 @@ namespace PII_TP2_Vet
             {
                 aProd[i] = null;
             }
+            cadenaBD = cadena;
         }
 
         private void frmProducto_Load(object sender, EventArgs e)
         {
+            oDato = new AccesoDato(cadenaBD);
             cargarLista(lstProductos, "Productos");
             cargarCombo(cboMarca, "Marcas");            
             habilitar(false);
+
         }
                 
 

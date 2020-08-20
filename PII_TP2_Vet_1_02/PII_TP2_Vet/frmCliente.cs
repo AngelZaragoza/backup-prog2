@@ -12,25 +12,31 @@ using System.Windows.Forms;
 namespace PII_TP2_Vet
 {
     public partial class frmCliente : Form
-    {
-        //AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\mayco.DESKTOP-B3EKAFO\Downloads\uni\basesDe Dato\Veterinaria.mdb");
-        AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+    {        
+        //AccesoDato oDato = new AccesoDato(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Documents and Settings\Administrador\Escritorio\TUP\Prog 2\PII_TP2_Vet\Veterinaria.mdb");
+        string cadenaBD;        
+        AccesoDato oDato;
         const int tam = 100;
         Cliente[] ac = new Cliente[tam];
         int c;
         bool nuevo;
-        public frmCliente()
+
+        public frmCliente(string cadena)
         {
             InitializeComponent();
             for (int i = 0; i < tam; i++)
             {
                 ac[i] = null;
             }
-              nuevo = false;
+            nuevo = false;
+            cadenaBD = cadena;
         }
 
         private void FrmCliente_Load(object sender, EventArgs e)
         {
+
+
+            oDato = new AccesoDato(cadenaBD);
             cargarLista("Cliente");
             cargarCombo(cboTipoDoc, "TipoDocumento");
             habilitar(false);
@@ -38,7 +44,7 @@ namespace PII_TP2_Vet
 
         private void ultimoCodigo()
         {
-            //RECUPERA EL IDMASCOTA MAS ALTO PARA SUGERIRLO COMO NUEVO CODIGO
+            //RECUPERA EL ID MAS ALTO PARA SUGERIRLO COMO NUEVO CODIGO
             DataTable t = new DataTable();
             string conSQL = "SELECT TOP 1 idCliente from Cliente ORDER BY 1 DESC";
             t = oDato.consultarBD(conSQL);

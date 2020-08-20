@@ -20,14 +20,35 @@ namespace PII_TP2_Vet
         frmRptClientes rptClien = null;
         frmCliente abmClie = null;
         AccesoDato oDato = null;
-        string CS = "";
+        string cadenaBD = "";
 
+        
         public frmPrincipal()
         {            
             InitializeComponent();            
-
         }
-            
+
+        //Inicialización de la cadena de conexión que se pasará como parámetro a cada formulario
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                //Cadena de conexión... modificarla según en qué carpeta esté el proyecto
+                cadenaBD = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\GIT\backup-prog2\PII_TP2_Vet_1_02\Veterinaria.mdb";
+                
+                //Esta cadena de abajo podría funcionar en arquitecturas x64, pero por el momento no logré hacerlo funcionar
+                //cadenaBD = @"Provider=Microsoft.ACE.OLEDB.14.0;Data Source=D:\GIT\backup-prog2\PII_TP2_Vet_1_02\Veterinaria.mdb";
+                
+                //Creamos el objeto que manejará la Base de Datos (sólo usado en uno de los form)
+                oDato = new AccesoDato(cadenaBD);
+            }
+            catch
+            {
+                MessageBox.Show("No se puede leer BD");
+                Close();
+            }
+        }
+
 
         private void listadoStockToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -48,19 +69,13 @@ namespace PII_TP2_Vet
         {
             rptProd = null;
         }
-
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult opcion = MessageBox.Show("¿Desea Salir del Programa?", "Confirme",
-                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (opcion == DialogResult.Yes)                                            
-                Close();
-        }
+               
 
         private void aBMMascotasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (abmMascota == null)
             {
+                //A este form le mandamos como parámetro un objeto de AccesoDato en vez de sólo la cadena de conexión
                 abmMascota = new frmMascotas(oDato);
                 abmMascota.MdiParent = this;
                 abmMascota.FormClosed += new FormClosedEventHandler(abmMascota_FormClosed);
@@ -81,7 +96,8 @@ namespace PII_TP2_Vet
         {
             if (abmProd == null)
             {
-                abmProd = new frmProducto();
+                //Enviamos la cadena de conexión como parámetro (string)
+                abmProd = new frmProducto(cadenaBD);
                 abmProd.MdiParent = this;
                 abmProd.FormClosed += new FormClosedEventHandler(abmProd_FormClosed);
                 abmProd.Show();
@@ -129,9 +145,10 @@ namespace PII_TP2_Vet
         {
             if (abmClie == null)
             {
-                abmClie = new frmCliente();
+                //Enviamos la cadena de conexión como parámetro (string)
+                abmClie = new frmCliente(cadenaBD);
                 abmClie.MdiParent = this;
-                abmClie.FormClosed += new FormClosedEventHandler(abmClie_FormClosed);
+                abmClie.FormClosed += new FormClosedEventHandler(abmClie_FormClosed);                
                 abmClie.Show();
             }
             else
@@ -165,18 +182,16 @@ namespace PII_TP2_Vet
             rptClien = null;
         }
 
-        private void frmPrincipal_Load(object sender, EventArgs e)
+
+        //Opción Salir: Llama un cuadro de mensaje, si el usuario elige Sí, cierra el programa
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                CS = ConfigurationManager.ConnectionStrings["PII_TP2_Vet.Properties.Settings.Veterinaria_CS"].ToString();
-                oDato = new AccesoDato(CS);
-            }
-            catch
-            {
-                MessageBox.Show("No se puede leer BD");
+            DialogResult opcion = MessageBox.Show("¿Desea Salir del Programa?", "Confirme",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (opcion == DialogResult.Yes)
                 Close();
-            }
         }
+
+
     }
 }

@@ -89,6 +89,7 @@ namespace PII_TP2_Vet
             adm.leerTabla(nombreTabla);
             while (adm.pLector.Read())
             {
+                //Creamos un objeto Mascota
                 Mascota m = new Mascota();
                 if (!adm.pLector.IsDBNull(0))
                     m.pIdMascota = adm.pLector.GetInt32(0);
@@ -111,38 +112,21 @@ namespace PII_TP2_Vet
                 if (!adm.pLector.IsDBNull(9))
                     m.pEstado = adm.pLector.GetBoolean(9);
                
+                //Agregamos el objeto Mascota al arreglo de Mascotas
                 masc[c] = m;
                 c++;
             }
             adm.pLector.Close();
             adm.desconectar();
 
+            //Cargamos el ListBox con el contenido del arreglo de Mascotas
             for (int i = 0; i < c; i++)
             {
                 lstMascotas.Items.Add(masc[i].ToString());
             }            
             lstMascotas.SelectedIndex = -1;
         }
-
-        private void actualizarCampos(int posicion)
-        {
-            txtCodigo.Text = masc[posicion].pIdMascota.ToString();
-            txtNombre.Text = masc[posicion].pNombre;
-            cboTipoMascota.SelectedValue = masc[posicion].pTipoMascota;
-            cboRaza.SelectedValue = masc[posicion].pRaza;
-            dtpFechaNac.Value = masc[posicion].pFechaNac;
-            if (masc[posicion].pSexo)
-                rbtMacho.Checked = true;
-            else
-                rbtHembra.Checked = true;
-            txtObservacion.Text = masc[posicion].pObservacion;            
-            cboDuenio.SelectedValue = masc[posicion].pIdCliente;
-            txtPeso.Text = masc[posicion].pPeso.ToString();
-            if (masc[posicion].pEstado)
-                chkEstado.Checked = true;
-            else
-                chkEstado.Checked = false;
-        }
+               
 
         //MANEJO DE CONTROLES
         private void habilitar(bool opcion)
@@ -357,7 +341,7 @@ namespace PII_TP2_Vet
         {
             if (lstMascotas.SelectedIndex >= 0)
             {
-               if (masc[lstMascotas.SelectedIndex].pEstado)
+                if (masc[lstMascotas.SelectedIndex].pEstado)
                 {
                         DialogResult opcion = MessageBox.Show ("¿Realmente desea borrar la mascota ?","Confirmar",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -369,7 +353,7 @@ namespace PII_TP2_Vet
                        limpiar();
                        cargarLista("Mascota");
                    }
-                }
+                }                
             }
             else
             {
@@ -393,9 +377,36 @@ namespace PII_TP2_Vet
         }
 
 
+        //Recupera los datos del arreglo de Mascotas y carga los datos en los controles
         private void lstMascotas_SelectedIndexChanged(object sender, EventArgs e)
         {
             actualizarCampos(lstMascotas.SelectedIndex);
+        }
+
+        private void actualizarCampos(int posicion)
+        {
+            txtCodigo.Text = masc[posicion].pIdMascota.ToString();
+            txtNombre.Text = masc[posicion].pNombre;
+            cboTipoMascota.SelectedValue = masc[posicion].pTipoMascota;
+            cboRaza.SelectedValue = masc[posicion].pRaza;
+            dtpFechaNac.Value = masc[posicion].pFechaNac;
+            if (masc[posicion].pSexo)
+                rbtMacho.Checked = true;
+            else
+                rbtHembra.Checked = true;
+            txtObservacion.Text = masc[posicion].pObservacion;
+            cboDuenio.SelectedValue = masc[posicion].pIdCliente;
+            txtPeso.Text = masc[posicion].pPeso.ToString();
+            if (masc[posicion].pEstado)
+            {
+                chkEstado.Checked = true;
+                btnBorrar.Enabled = true;
+            }                
+            else
+            {
+                chkEstado.Checked = false;
+                btnBorrar.Enabled = false;
+            }                
         }
 
         //VALIDACIONES VARIAS
@@ -450,8 +461,9 @@ namespace PII_TP2_Vet
             errValidacion.SetError(dtpFechaNac, "");
             errValidacion.SetError(txtPeso, "");
         }
-        
-        
+
+
+        //Controla que sólo se ingresen números en los TextBox
         private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
